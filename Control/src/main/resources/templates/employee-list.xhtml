@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+    <title>#{msg['form.title']}</title>
+    <h:outputStylesheet library="css" name="Style.css"/>
+</h:head>
+<h:body>
+    <h2>#{msg['form.listTitle']}</h2>
+    <ui:include src="languageSwitch.xhtml" />
+    <h:messages globalOnly="true" showDetail="true" autoUpdate="true"/>
+    <h:form>
+        <h:dataTable value="#{employeeBean.employees}" var="employee" styleClass="table">
+            <h:column>
+                <f:facet name="header">#{msg['header.id']}</f:facet>
+                #{employee.employeeID}
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.lastName']}</f:facet>
+                <h:outputText value="#{employee.lastName}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.lastName}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.firstName']}</f:facet>
+                <h:outputText value="#{employee.firstName}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.firstName}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.email']}</f:facet>
+                <h:outputText value="#{employee.email}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.email}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.phone']}</f:facet>
+                <h:outputText value="#{employee.phoneNumber}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.phoneNumber}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.address']}</f:facet>
+                <h:outputText value="#{employee.adresse}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.adresse}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.department']}</f:facet>
+                <h:outputText value="#{employee.department}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.department}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">#{msg['header.salary']}</f:facet>
+                <h:outputText value="#{employee.salary}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"/>
+                <h:inputText value="#{employee.salary}" rendered="#{employeeBean.isEditing(employee.employeeID)}"/>
+            </h:column>
+            <h:column>
+                <h:commandButton value="#{msg['button.edit']}" rendered="#{not employeeBean.isEditing(employee.employeeID)}"
+                                 actionListener="#{employeeBean.startEdit(employee)}" styleClass="command-button"/>
+                <h:commandButton value="#{msg['button.save']}" rendered="#{employeeBean.isEditing(employee.employeeID)}"
+                                 action="#{employeeBean.savee}" styleClass="command-button" />
+            </h:column>
+            <h:column>
+                <h:commandButton value="#{msg['button.delete']}" action="#{employeeBean.delete(employee.employeeID)}" styleClass="command-button" />
+            </h:column>
+        </h:dataTable>
+
+        <h:commandButton value="#{msg['button.add']}" action="addEmployee?faces-redirect=true" styleClass="command-button"/>
+    </h:form>
+</h:body>
+</html>
